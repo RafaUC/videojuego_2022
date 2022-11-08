@@ -18,16 +18,21 @@ public class Player : MonoBehaviour
     public LayerMask groundLayer;
     public float radius = 0.617f;
     public float groundRayDist = 0f;
+    public float jumpSpareTimeCount;
     
     private Rigidbody2D rb;
     private Animator anim;
     private SpriteRenderer spr;
-    public float jumpSpareTimeCount;
+    private GameObject tail;
+    private int isFliped = 1;
+
+
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        tail = transform.Find("Tail").gameObject;
     }
     void FixedUpdate()
     {
@@ -57,9 +62,11 @@ public class Player : MonoBehaviour
         Vector3 theScale = transform.localScale;
         if(_xValue < 0){
             theScale.x = Mathf.Abs(theScale.x)*-1;
+            isFliped = -1;
         }else {
             if (_xValue > 0){
                 theScale.x = Mathf.Abs(theScale.x);
+                isFliped = 1;
             }
         }
         transform.localScale = theScale;
@@ -120,6 +127,7 @@ public class Player : MonoBehaviour
 
 
         //Anbimation updates
+        tail.transform.right = (rb.velocity*isFliped).normalized;
         switch((movHor,isGrounded)){
             
             case (_, false):
