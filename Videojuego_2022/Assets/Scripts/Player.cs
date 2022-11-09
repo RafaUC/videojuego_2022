@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
@@ -19,12 +20,18 @@ public class Player : MonoBehaviour
     public float radius = 0.617f;
     public float groundRayDist = 0f;
     public float jumpSpareTimeCount;
-    
+    public Vector2 movementInput;
+    public Vector2 cursorPosition;
+
     private Rigidbody2D rb;
     private Animator anim;
     private SpriteRenderer spr;
     private GameObject tail;
+    private GameObject gun;
     private int isFliped = 1;
+    
+
+    [SerializeField] private InputActionReference movement, attack, cursorPos, jump;
 
 
     // Start is called before the first frame update
@@ -33,10 +40,11 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         tail = transform.Find("Tail").gameObject;
+        gun = transform.Find("Gun").gameObject;
     }
     void FixedUpdate()
     {
-        ChangeVelocityByAceleration(rb,new Vector2(movHor*maxSpeed,rb.velocity.y),movInercia);
+        Utilities.ChangeVelocityByAceleration(rb,new Vector2(movHor*maxSpeed,rb.velocity.y),movInercia);
         
     }
 
@@ -45,26 +53,31 @@ public class Player : MonoBehaviour
         obj = this;
     }
 
-    public void jump(){
+    public void Jump(){
         if (!canJump) return;
         jumpSpareTimeCount = 0;
         canJump = false;
         rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-        AudioManager.obj.playSaltar();
+        //AudioManager.obj.playSaltar();
     }
 
-    public void cancelJump(){
+    public void CancelJump(){
+        if (isGrounded) return;
         if (rb.velocity.y < 0) return;
         rb.velocity = new Vector2(rb.velocity.x,rb.velocity.y/3f);
     }
 
+    private void DoAtack(){
+
+    }
+
     public void flip(float _xValue){
         Vector3 theScale = transform.localScale;
-        if(_xValue < 0){
+        if(_xValue < -0.2){
             theScale.x = Mathf.Abs(theScale.x)*-1;
             isFliped = -1;
         }else {
-            if (_xValue > 0){
+            if (_xValue > 0.2){
                 theScale.x = Mathf.Abs(theScale.x);
                 isFliped = 1;
             }
@@ -86,48 +99,54 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void ChangeVelocityByAceleration(Rigidbody2D rgb, Vector2 finalVelocity, float inercia){       
-        if (rgb.velocity.x == finalVelocity.x && rgb.velocity.y == finalVelocity.y) return;
-
-        
-        
-        float xDiference = (finalVelocity.x - rgb.velocity.x)/inercia;
-        float yDiference = (finalVelocity.y - rgb.velocity.y)/inercia;                
-        if(rgb.velocity.x < finalVelocity.x && xDiference < 0 || rgb.velocity.x > finalVelocity.x && xDiference > 0){ //La fuerza agregada saldria del la fuerza deseada, en eje x
-            rgb.velocity = new Vector2(finalVelocity.x,rgb.velocity.y);
-            xDiference = 0f;
-        }
-        if(rgb.velocity.y+yDiference < finalVelocity.y && yDiference < 0 || rgb.velocity.y+yDiference > finalVelocity.y && yDiference > 0){
-            rgb.velocity = new Vector2(rgb.velocity.x,finalVelocity.y);
-            yDiference = 0f;
-        }        
-        rgb.velocity = new Vector2(rb.velocity.x + xDiference, rb.velocity.y + yDiference);
-    
+    public Vector2 GetCursorPos(){
+        Vector3 currentCursorPos = cursorPos.action.ReadValue<Vector2>();
+        currentCursorPos.z = Camera.main.nearClipPlane;
+        return Camera.main.ScreenToWorldPoint(currentCursorPos);
     }
+
+      
+
+    public void UpdateGunRotation(){
+        Vector2 rotation = ((cursorPosition-(Vector2)gun.transform.position)*isFliped).normalized;
+        if(Mathf.Abs(rotation.y)<0.9f){
+            gun.transform.right = rotation;
+        }
+        
+    }
+    
 
     // Update is called once per frame
     void Update()
     {        
-        movHor = Input.GetAxisRaw("Horizontal");
-        flip(movHor);        
+        cursorPosition = GetCursorPos();
+        movementInput = movement.action.ReadValue<Vector2>();
+        movHor = movementInput.x;
+        //flip(movHor);   
+        Vector2 targetDif = (cursorPosition-(Vector2)gun.transform.position);
+        flip(targetDif.x);
+
         isGrounded = Physics2D.CircleCast(transform.position, radius, Vector3.down, groundRayDist, groundLayer);
         if(!isGrounded){
             jumpSpareTimeCount = jumpSpareTimeCount - Time.deltaTime;
         }else {            
             jumpSpareTimeCount = jumpSpareTime;
         }
-        canJump = (jumpSpareTimeCount > 0);
+        canJump = (jumpSpareTimeCount > 0);     
 
-        if(Input.GetKeyDown(KeyCode.Space)){
-            jump();
+        if(jump.action.triggered){
+            Jump();
         }
-        if(Input.GetKeyUp(KeyCode.Space) && !isGrounded){
-            cancelJump();
-        }   
+        if(jump.action.ReadValue<float>() == 0){
+            CancelJump();
+        }
+        
 
 
         //Anbimation updates
-        tail.transform.right = (rb.velocity*isFliped).normalized;
+        tail.transform.right = (rb.velocity*isFliped).normalized;        
+        UpdateGunRotation();
+
         switch((movHor,isGrounded)){
             
             case (_, false):
@@ -146,6 +165,12 @@ public class Player : MonoBehaviour
                 anim.speed = Mathf.Abs(rb.velocity.x)/AnimSpeedDivisor;
                 break;
 
+        }
+
+        if((targetDif.x > 0 && rb.velocity.x < -0.27) || (targetDif.x < 0  && rb.velocity.x > 0.27)){
+            anim.SetInteger("Backwards", 1);
+        }else {
+            anim.SetInteger("Backwards", 0);
         }
         
     }
