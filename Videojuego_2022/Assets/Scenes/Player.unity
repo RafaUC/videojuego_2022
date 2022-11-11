@@ -217,6 +217,7 @@ GameObject:
   m_Component:
   - component: {fileID: 134779222}
   - component: {fileID: 134779223}
+  - component: {fileID: 134779224}
   m_Layer: 0
   m_Name: Gun
   m_TagString: Untagged
@@ -235,7 +236,8 @@ Transform:
   m_LocalPosition: {x: 0.156, y: 2.217, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1146732171}
   m_Father: {fileID: 465153605}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -291,6 +293,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &134779224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 134779221}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01fcf6b516c770641bb3960d77a7f320, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wd: {fileID: 11400000, guid: acb377f68fd9f374989e30c2bde1ba31, type: 2}
+  attackPoint: {fileID: 0}
+  bulletDefault: {fileID: 6152126868691445521, guid: e4822997b69eaa7449e6dddd5a962746, type: 3}
 --- !u!1 &465153601
 GameObject:
   m_ObjectHideFlags: 0
@@ -308,7 +325,7 @@ GameObject:
   - component: {fileID: 465153608}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -448,7 +465,8 @@ MonoBehaviour:
   movHor: 0
   jumpForce: 25
   AnimSpeedDivisor: 6
-  jumpSpareTime: 0.4
+  jumpSpareTime: 0.3
+  weaponRotationLimitY: 0.98
   isGrounded: 0
   canJump: 0
   groundLayer:
@@ -583,6 +601,37 @@ Transform:
   - {fileID: 1765185610}
   - {fileID: 2147219381}
   m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1146732170
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1146732171}
+  m_Layer: 0
+  m_Name: AttackPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1146732171
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1146732170}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.165, y: 0.197, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 134779222}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1765185609

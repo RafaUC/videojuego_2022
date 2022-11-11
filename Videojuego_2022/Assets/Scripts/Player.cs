@@ -13,9 +13,10 @@ public class Player : MonoBehaviour
     public float jumpForce = 25f;
     public float AnimSpeedDivisor = 6;
     public float jumpSpareTime = 0.4f;
+    public float weaponRotationLimitY = 0.9f;
 
     public bool isGrounded = false;
-    public bool canJump = false;
+    public int canJump = 0;
     public LayerMask groundLayer;
     public float radius = 0.617f;
     public float groundRayDist = 0f;
@@ -26,9 +27,11 @@ public class Player : MonoBehaviour
     private Rigidbody2D rb;
     private Animator anim;
     private SpriteRenderer spr;
-    private GameObject tail;
-    private GameObject gun;
+    private GameObject tail;    
     private int isFliped = 1;
+
+    private GameObject weapon;
+    private Weapon WeaponScript;
     
 
     [SerializeField] private InputActionReference movement, attack, cursorPos, jump;
@@ -40,7 +43,8 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         tail = transform.Find("Tail").gameObject;
-        gun = transform.Find("Gun").gameObject;
+        weapon = transform.Find("Gun").gameObject;
+        WeaponScript = weapon.GetComponent<Weapon>();
     }
     void FixedUpdate()
     {
@@ -54,22 +58,18 @@ public class Player : MonoBehaviour
     }
 
     public void Jump(){
-        if (!canJump) return;
+        if (canJump != 2 || jumpSpareTimeCount < 0) return;
         jumpSpareTimeCount = 0;
-        canJump = false;
+        canJump = 1;
         rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         //AudioManager.obj.playSaltar();
     }
 
-    public void CancelJump(){
-        if (isGrounded) return;
-        if (rb.velocity.y < 0) return;
+    public void CancelJump(){        
+        if (rb.velocity.y < 0 || isGrounded || canJump != 1) return;
         rb.velocity = new Vector2(rb.velocity.x,rb.velocity.y/3f);
-    }
-
-    private void DoAtack(){
-
-    }
+        canJump = 0;
+    }    
 
     public void flip(float _xValue){
         Vector3 theScale = transform.localScale;
@@ -107,10 +107,10 @@ public class Player : MonoBehaviour
 
       
 
-    public void UpdateGunRotation(){
-        Vector2 rotation = ((cursorPosition-(Vector2)gun.transform.position)*isFliped).normalized;
-        if(Mathf.Abs(rotation.y)<0.9f){
-            gun.transform.right = rotation;
+    public void UpdateWeaponRotation(){
+        Vector2 rotation = ((cursorPosition-(Vector2)weapon.transform.position)*isFliped).normalized;
+        if(Mathf.Abs(rotation.y)< weaponRotationLimitY){
+            weapon.transform.right = rotation;
         }
         
     }
@@ -123,7 +123,7 @@ public class Player : MonoBehaviour
         movementInput = movement.action.ReadValue<Vector2>();
         movHor = movementInput.x;
         //flip(movHor);   
-        Vector2 targetDif = (cursorPosition-(Vector2)gun.transform.position);
+        Vector2 targetDif = (cursorPosition-(Vector2)weapon.transform.position);
         flip(targetDif.x);
 
         isGrounded = Physics2D.CircleCast(transform.position, radius, Vector3.down, groundRayDist, groundLayer);
@@ -132,7 +132,12 @@ public class Player : MonoBehaviour
         }else {            
             jumpSpareTimeCount = jumpSpareTime;
         }
-        canJump = (jumpSpareTimeCount > 0);     
+        if (jumpSpareTimeCount > 0) {
+            canJump = 2;
+        }else {
+            //canJump = 1;
+        }
+        
 
         if(jump.action.triggered){
             Jump();
@@ -140,12 +145,20 @@ public class Player : MonoBehaviour
         if(jump.action.ReadValue<float>() == 0){
             CancelJump();
         }
+
+        UpdateWeaponRotation();
+        if(attack.action.ReadValue<float>() == 1){
+            WeaponScript.Attack();
+        }
+        if(attack.action.ReadValue<float>() == 0){
+            WeaponScript.AttackReleased();
+        }
         
 
 
         //Anbimation updates
         tail.transform.right = (rb.velocity*isFliped).normalized;        
-        UpdateGunRotation();
+        
 
         switch((movHor,isGrounded)){
             
@@ -153,7 +166,7 @@ public class Player : MonoBehaviour
                 anim.SetInteger("Running", 2);
                 anim.speed = Mathf.Abs(rb.velocity.x)/AnimSpeedDivisor/5;
                 break;
-            case var expression when (rb.velocity.x < -0.27 || rb.velocity.x > 0.27):
+            case var expression when ((rb.velocity.x < -0.27 || rb.velocity.x > 0.27)):
                 anim.SetInteger("Running", 2);
                 anim.speed = Mathf.Abs(rb.velocity.x)/AnimSpeedDivisor;
                 break;
@@ -167,7 +180,7 @@ public class Player : MonoBehaviour
 
         }
 
-        if((targetDif.x > 0 && rb.velocity.x < -0.27) || (targetDif.x < 0  && rb.velocity.x > 0.27)){
+        if((targetDif.x > 0 && rb.velocity.x < -0.7) || (targetDif.x < 0  && rb.velocity.x > 0.7)){
             anim.SetInteger("Backwards", 1);
         }else {
             anim.SetInteger("Backwards", 0);
