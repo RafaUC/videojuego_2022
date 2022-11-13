@@ -14,14 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponName: Gun
   type: 0
-  damage: 1
-  roundsPerSecond: 0.5
+  damage: 5
+  roundsPerSecond: 1
   velocity: 40
   reach: 20
-  fieldOfAtack: 4
+  fieldOfAtack: 3
   recoil: 20
+  mass: 2
   ammo: 0
-  loadedAmmo: 14
+  loadedAmmo: 20
   maxAmmo: -1
   reloadSize: 22
   reloadTime: 0

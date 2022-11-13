@@ -20,6 +20,7 @@ public class Attack : MonoBehaviour
         wd = weaponData;        
         lifeTime = wd.reach/wd.velocity;
         Physics2D.IgnoreCollision(sourceToIgnore.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+        GetComponent<Rigidbody2D>().mass = wd.mass;
         
         //Modifica el rango y la forma del ataque
         switch(wd.type){
@@ -37,10 +38,12 @@ public class Attack : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collission){
 
-        // if (collission.gameObject.CompareTag("Player")){
-        //     Debug.Log("Daño Player");
-        //     playerScript.recibirDano(1);
-        // }
+        
+        I_Damagable damagable = collission.gameObject.GetComponent<I_Damagable>();
+        if (damagable != null){            
+            damagable.Damage(wd.damage);
+        }
+        
 
         
         Debug.Log(collission.collider.gameObject.name);

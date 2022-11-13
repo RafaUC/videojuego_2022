@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, I_Damagable
 {
     public static Player obj;    
-    public int lives = 3;
+    public float hp = 3f;
     public float maxSpeed = 13f;
     public float movInercia = 18f;
     public float movHor;        
@@ -18,7 +18,7 @@ public class Player : MonoBehaviour
     public bool isGrounded = false;
     public int canJump = 0;
     public LayerMask groundLayer;
-    public float radius = 0.617f;
+    public Vector2 boxSize = new Vector2(1.17f,0.27f);
     public float groundRayDist = 0f;
     public float jumpSpareTimeCount;
     public Vector2 movementInput;
@@ -57,6 +57,14 @@ public class Player : MonoBehaviour
         obj = this;
     }
 
+    public void Damage(float damage){
+        hp = hp - damage;        
+        if(hp <= 0){            
+            this.gameObject.SetActive(false);
+            //Destroy(this.gameObject);       
+        }
+    }
+
     public void Jump(){
         if (canJump != 2 || jumpSpareTimeCount < 0) return;
         jumpSpareTimeCount = 0;
@@ -89,16 +97,7 @@ public class Player : MonoBehaviour
         return transform.position;
     }
 
-    public void recibirDano(int num){
-        lives = lives - num;
-        AudioManager.obj.playHurt();
-        if(lives <= 0){
-            AudioManager.obj.playMuerte();            
-            gameObject.SetActive(false);
-            FXManager.obj.showPop(transform.position);
-        }
-    }
-
+    
     public Vector2 GetCursorPos(){
         Vector3 currentCursorPos = cursorPos.action.ReadValue<Vector2>();
         currentCursorPos.z = Camera.main.nearClipPlane;
@@ -115,6 +114,9 @@ public class Player : MonoBehaviour
         
     }
     
+    void OnDrawGizmos(){
+        Gizmos.DrawWireCube(transform.position,boxSize);
+    }
 
     // Update is called once per frame
     void Update()
@@ -126,7 +128,7 @@ public class Player : MonoBehaviour
         Vector2 targetDif = (cursorPosition-(Vector2)weapon.transform.position);
         flip(targetDif.x);
 
-        isGrounded = Physics2D.CircleCast(transform.position, radius, Vector3.down, groundRayDist, groundLayer);
+        isGrounded = Physics2D.BoxCast(transform.position, boxSize, 0f, Vector3.zero, groundRayDist, groundLayer);        
         if(!isGrounded){
             jumpSpareTimeCount = jumpSpareTimeCount - Time.deltaTime;
         }else {            

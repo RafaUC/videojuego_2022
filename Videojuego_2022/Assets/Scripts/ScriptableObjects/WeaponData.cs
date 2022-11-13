@@ -16,6 +16,7 @@ public class WeaponData : ScriptableObject
     public float reach;
     public float fieldOfAtack;
     public float recoil;
+    public float mass;
 
     [Header("Reload") ]
     public int ammo;

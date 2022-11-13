@@ -1,8 +1,9 @@
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour, I_Damagable
 {
     public static Enemy obj;
+    public float hp = 3f;
     public float speed = 2f; 
     public float movHor; //Se moverá sólo (cambiar el valor de 1 a -1 )
     public int scoreGive = 50;
@@ -14,21 +15,27 @@ public class Enemy : MonoBehaviour
     public Transform groundCheckPos;
     public Collider2D bodyCollider;
 
-    private Rigidbody2D rb; 
+    protected Rigidbody2D rb; 
     public Animator anim; 
-    private SpriteRenderer spr;
+    protected SpriteRenderer spr;
 
-    void Start()
+    protected GameObject player;
+    protected Player playerScript;
+    
+
+    protected void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         spr = GetComponent<SpriteRenderer>();
+        player = GameObject.FindWithTag("Player");
+        playerScript = (Player) player.GetComponent(typeof(Player));
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.CompareTag("Player"))
         {
-            //player.obj.getDamage();
+            playerScript.Damage(1);
             Flip();
             movHor = movHor * -1;
             //anim.SetFloat("Horizontal", movHor);
@@ -54,6 +61,13 @@ public class Enemy : MonoBehaviour
         {
             gameObject.SetActive(false); //El antangonista desaparece 
             //fx_manager.obj.showPop(transform.position);
+        }
+    }
+    
+    public virtual void Damage(float damage){
+        hp = hp - damage;        
+        if(hp <= 0){            
+            Destroy(this.gameObject);       
         }
     }
 

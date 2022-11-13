@@ -20,8 +20,9 @@ MonoBehaviour:
   reach: 30
   fieldOfAtack: 1
   recoil: 2
+  mass: 0.2
   ammo: 0
-  loadedAmmo: 16
+  loadedAmmo: 3
   maxAmmo: -1
   reloadSize: 22
   reloadTime: 0
