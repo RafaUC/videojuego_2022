@@ -41,7 +41,7 @@ public class Enemy_bat : MonoBehaviour
     void OnCollisionEnter2D(Collision2D collission){
         if (collission.gameObject.CompareTag("Player")){
             Debug.Log("Daño Player");
-            playerScript.recibirDano(1);
+            playerScript.Damage(1);
         }
     }
 
