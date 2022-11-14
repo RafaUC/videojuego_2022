@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c823e45c20b72e4419f0b2ca585e53e6
+guid: b50fad11da4cf2649b471e05c0fe5f05
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 24
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -105,13 +105,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: mushi_sprite_0
+      name: Enemy_puffer_0
       rect:
         serializedVersion: 2
-        x: 12
-        y: 396
-        width: 68
-        height: 104
+        x: 6
+        y: 224
+        width: 46
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -119,20 +119,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 46c3ce3d7b2733345a6806be033d0a8d
-      internalID: 1334097354
+      spriteID: 311c9f82c43a39f47aa798c3228841cc
+      internalID: -103335718
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: mushi_sprite_1
+      name: Enemy_puffer_1
       rect:
         serializedVersion: 2
-        x: 92
-        y: 396
-        width: 68
-        height: 104
+        x: 68
+        y: 224
+        width: 46
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -140,20 +140,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5278dfcca9eed37458cfa75a3f748603
-      internalID: 1820600449
+      spriteID: a0b81a249c745474e8259ccf48c085cc
+      internalID: 437671625
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: mushi_sprite_2
+      name: Enemy_puffer_2
       rect:
         serializedVersion: 2
-        x: 172
-        y: 396
-        width: 68
-        height: 104
+        x: 6
+        y: 172
+        width: 52
+        height: 44
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -161,8 +161,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: df1254982b5552c40818c76187318cc4
-      internalID: 1883293915
+      spriteID: eed1ad2287fb9b3479bda2dac64e70e3
+      internalID: -1540012575
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy_puffer_3
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 172
+        width: 52
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 77fd75ec264089046b723c641b11b9a6
+      internalID: -425034058
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy_puffer_4
+      rect:
+        serializedVersion: 2
+        x: 107
+        y: 106
+        width: 5
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7420c20912a16604d9a3edaa32858a28
+      internalID: 1867483392
       vertices: []
       indices: 
       edges: []
@@ -178,9 +220,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      mushi_sprite_2: 1883293915
-      mushi_sprite_1: 1820600449
-      mushi_sprite_0: 1334097354
+      Enemy_puffer_2: -1540012575
+      Enemy_puffer_3: -425034058
+      Enemy_puffer_0: -103335718
+      Enemy_puffer_1: 437671625
+      Enemy_puffer_4: 1867483392
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

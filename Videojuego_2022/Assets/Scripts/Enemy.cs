@@ -7,6 +7,9 @@ public class Enemy : MonoBehaviour
     public float movHor; //Se moverá sólo (cambiar el valor de 1 a -1 )
     public int scoreGive = 50;
     public bool mustTurn = false;
+    public bool chasePlayer = false;
+    private Transform player;
+    public float lineOfSite;
 
     public bool isGroundedFloor = false;
     public bool isGroundFront = false;
@@ -20,8 +23,11 @@ public class Enemy : MonoBehaviour
 
     void Start()
     {
+        movHor = 1;
+        speed = 2f;
         rb = GetComponent<Rigidbody2D>();
         spr = GetComponent<SpriteRenderer>();
+        player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -50,10 +56,17 @@ public class Enemy : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.CompareTag("Player"))
+        if (collision.CompareTag("Player"))
         {
-            gameObject.SetActive(false); //El antangonista desaparece 
-            //fx_manager.obj.showPop(transform.position);
+            chasePlayer = true;
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            chasePlayer = false;
         }
     }
 
@@ -68,6 +81,12 @@ public class Enemy : MonoBehaviour
         mustTurn = !Physics2D.OverlapCircle(groundCheckPos.position, 0.1f, groundLayer);
     }
 
+    private void OnDrawGizmoSelected()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, lineOfSite);
+    }
+
     void Update()
     {
         if(mustTurn == true || bodyCollider.IsTouchingLayers(groundLayer))
@@ -75,6 +94,30 @@ public class Enemy : MonoBehaviour
             Flip();
             movHor = movHor * -1;
         }
+        
+        float distanceFromPlayer = Vector2.Distance(player.position, transform.position);
+        if(distanceFromPlayer < lineOfSite)
+        {
+            transform.position = Vector2.MoveTowards(this.transform.position, player.position, speed*Time.deltaTime);
+            speed = 6f; 
+            movHor = 0;
+        }
+        else{
+            if(movHor == 0)
+            {
+                Start();
+            }
+        }
+        
     }
-
 }
+
+
+//void OnTriggerEnter2D(Collider2D collision)
+    //{
+    //    if(collision.gameObject.CompareTag("Player"))
+    //    {
+    //        gameObject.SetActive(false); //El antangonista desaparece 
+    //        //fx_manager.obj.showPop(transform.position);
+    //    }
+    //}

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 5154e8b1d13fff04ab981afe325f8b1d
+guid: c4252d837a29ceb439fe861a6a6108f6
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 24
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -105,13 +105,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: fish_sprite_0
+      name: Enemy_star_0
       rect:
         serializedVersion: 2
-        x: 12
-        y: 408
-        width: 112
-        height: 96
+        x: 6
+        y: 200
+        width: 56
+        height: 50
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -119,20 +119,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8060b2762e5c6df4f81fd77c4bc676f6
-      internalID: 1350303261
+      spriteID: 2e22ea298b57e0d4aa2c734fba41ec6f
+      internalID: -862409701
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: fish_sprite_1
+      name: Enemy_star_1
       rect:
         serializedVersion: 2
-        x: 132
-        y: 404
-        width: 112
-        height: 100
+        x: 68
+        y: 200
+        width: 56
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -140,92 +140,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9276b6158c68fb24fa924f9702486b5f
-      internalID: 1728535998
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: fish_sprite_2
-      rect:
-        serializedVersion: 2
-        x: 252
-        y: 408
-        width: 112
-        height: 96
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f74f142f3d265c74180b5c264d6e01c5
-      internalID: 1354693881
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: fish_sprite_3
-      rect:
-        serializedVersion: 2
-        x: 372
-        y: 408
-        width: 112
-        height: 96
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d61754ed079e999489b2050d4956d608
-      internalID: -478426611
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: fish_sprite_4
-      rect:
-        serializedVersion: 2
-        x: 24
-        y: 292
-        width: 96
-        height: 100
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 97c4d45b067fc4d4bb5201571467df19
-      internalID: -1305179213
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: fish_sprite_5
-      rect:
-        serializedVersion: 2
-        x: 148
-        y: 292
-        width: 96
-        height: 96
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d42e60a123329cc46a5ac3b9a1fb8e7b
-      internalID: 1701459967
+      spriteID: 37c208f188f1f3d42a5859f2d38d9384
+      internalID: -804094464
       vertices: []
       indices: 
       edges: []
@@ -241,12 +157,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      fish_sprite_3: -478426611
-      fish_sprite_1: 1728535998
-      fish_sprite_2: 1354693881
-      fish_sprite_5: 1701459967
-      fish_sprite_4: -1305179213
-      fish_sprite_0: 1350303261
+      Enemy_star_0: -862409701
+      Enemy_star_1: -804094464
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
