@@ -8,8 +8,7 @@ public class Enemy : MonoBehaviour, I_Damagable
     public float movHor; //Se moverá sólo (cambiar el valor de 1 a -1 )
     public int scoreGive = 50;
     public bool mustTurn = false;
-    public bool chasePlayer = false;
-    private Transform player;
+    public bool chasePlayer = false;    
     public float lineOfSite;
 
     public bool isGroundedFloor = false;
@@ -32,7 +31,8 @@ public class Enemy : MonoBehaviour, I_Damagable
         speed = 2f;
         rb = GetComponent<Rigidbody2D>();
         spr = GetComponent<SpriteRenderer>();
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+        player = GameObject.FindWithTag("Player");
+        playerScript = (Player) player.GetComponent(typeof(Player));
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -107,10 +107,10 @@ public class Enemy : MonoBehaviour, I_Damagable
             movHor = movHor * -1;
         }
         
-        float distanceFromPlayer = Vector2.Distance(player.position, transform.position);
+        float distanceFromPlayer = Vector2.Distance(player.transform.position, transform.position);
         if(distanceFromPlayer < lineOfSite)
         {
-            transform.position = Vector2.MoveTowards(this.transform.position, player.position, speed*Time.deltaTime);
+            transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, speed*Time.deltaTime);
             speed = 6f; 
             movHor = 0;
         }
