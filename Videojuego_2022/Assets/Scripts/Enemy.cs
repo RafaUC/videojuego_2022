@@ -1,16 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour, I_Damagable
 {
     public static Enemy obj;
+    public float hp = 3f;
     public float speed = 2f; 
     public float movHor; //Se moverá sólo (cambiar el valor de 1 a -1 )
     public int scoreGive = 50;
     public bool mustTurn = false;
-    public bool chasePlayer = false;    
-    public float lineOfSite;
 
     public bool isGroundedFloor = false;
     public bool isGroundFront = false;
@@ -18,17 +15,20 @@ public class Enemy : MonoBehaviour
     public Transform groundCheckPos;
     public Collider2D bodyCollider;
 
-    private Rigidbody2D rb; 
+    protected Rigidbody2D rb; 
     public Animator anim; 
-    private SpriteRenderer spr;
+    protected SpriteRenderer spr;
 
-    void Start()
+    protected GameObject player;
+    protected Player playerScript;
+    
+    public float lineOfSite;
+    
+
+    protected void Start()
     {
-        movHor = 1;
-        speed = 2f;
         rb = GetComponent<Rigidbody2D>();
         spr = GetComponent<SpriteRenderer>();
-        player = GameObject.FindGameObjectWithTag("Player").transform;
         player = GameObject.FindWithTag("Player");
         playerScript = (Player) player.GetComponent(typeof(Player));
     }
@@ -37,7 +37,7 @@ public class Enemy : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Player"))
         {
-            //player.obj.getDamage();
+            playerScript.Damage(1);
             Flip();
             movHor = movHor * -1;
             //anim.SetFloat("Horizontal", movHor);
@@ -59,20 +59,13 @@ public class Enemy : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if(collision.gameObject.CompareTag("Player"))
         {
-            chasePlayer = true;
+            gameObject.SetActive(false); //El antangonista desaparece 
+            //fx_manager.obj.showPop(transform.position);
         }
     }
-
-    void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Player"))
-        {
-            chasePlayer = false;
-        }
-    }
-
+    
     public virtual void Damage(float damage){
         hp = hp - damage;        
         if(hp <= 0){            
@@ -104,8 +97,7 @@ public class Enemy : MonoBehaviour
             Flip();
             movHor = movHor * -1;
         }
-        float distanceFromPlayer = Vector2.Distance(player.position, transform.position);
-        
+
         float distanceFromPlayer = Vector2.Distance(player.transform.position, transform.position);
         if(distanceFromPlayer < lineOfSite)
         {
@@ -119,16 +111,6 @@ public class Enemy : MonoBehaviour
                 Start();
             }
         }
-        
     }
+
 }
-
-
-//void OnTriggerEnter2D(Collider2D collision)
-    //{
-    //    if(collision.gameObject.CompareTag("Player"))
-    //    {
-    //        gameObject.SetActive(false); //El antangonista desaparece 
-    //        //fx_manager.obj.showPop(transform.position);
-    //    }
-    //}
