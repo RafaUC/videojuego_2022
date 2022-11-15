@@ -34,10 +34,23 @@ public class EnemySeeker : Enemy
         
     }
 
+    public void flip(float _xValue){
+        Vector3 theScale = transform.localScale;
+        if(_xValue < -0.2){
+            theScale.x = Mathf.Abs(theScale.x)*-1;            
+        }else {
+            if (_xValue > 0.2){
+                theScale.x = Mathf.Abs(theScale.x);                
+            }
+        }
+        transform.localScale = theScale;
+    }
+
     // Update is called once per frame
     void Update()
     {
         UpdateMov();
+        flip(rb.velocity.x);
     }    
 
     public void SetTarget(GameObject newTarget){
@@ -65,6 +78,7 @@ public class EnemySeeker : Enemy
 
     public void UpdateMov(){
         if(target != null){ //seeking
+            anim.SetInteger("Chasing", 1);
             Vector3 offset = target.GetComponent<Collider2D>().bounds.size * 0.7f;
             mov = (target.transform.position + offset - transform.position).normalized;        
             if(rb.velocity.magnitude>maxSpeed/4){
@@ -74,6 +88,7 @@ public class EnemySeeker : Enemy
                 target = null;
             }
         }else { //Wondering behavior
+            anim.SetInteger("Chasing", 0);
             if(timer > 3){
                 timer = 0;
                 Utilities.RandomVector2(ref wonderingTarget, (Vector2)transform.position - (Vector2.one * wonderingRange), (Vector2)transform.position + (Vector2.one * wonderingRange));

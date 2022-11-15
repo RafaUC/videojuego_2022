@@ -31,6 +31,7 @@ public class Enemy : MonoBehaviour, I_Damagable
         spr = GetComponent<SpriteRenderer>();
         player = GameObject.FindWithTag("Player");
         playerScript = (Player) player.GetComponent(typeof(Player));
+        anim = GetComponent<Animator>();
     }
 
     void OnCollisionEnter2D(Collision2D collision)
