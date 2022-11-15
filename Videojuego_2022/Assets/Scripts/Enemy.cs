@@ -73,6 +73,13 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    public virtual void Damage(float damage){
+        hp = hp - damage;        
+        if(hp <= 0){            
+            Destroy(this.gameObject);       
+        }
+    }
+
     void Flip()
     {
         transform.localScale = new Vector2(transform.localScale.x * -1, transform.localScale.y);
