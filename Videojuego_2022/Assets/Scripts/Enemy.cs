@@ -1,9 +1,10 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour, I_Damagable
+public class Enemy : MonoBehaviour
 {
     public static Enemy obj;
-    public float hp = 3f;
     public float speed = 2f; 
     public float movHor; //Se moverá sólo (cambiar el valor de 1 a -1 )
     public int scoreGive = 50;
@@ -18,28 +19,26 @@ public class Enemy : MonoBehaviour, I_Damagable
     public Transform groundCheckPos;
     public Collider2D bodyCollider;
 
-    protected Rigidbody2D rb; 
+    private Rigidbody2D rb; 
     public Animator anim; 
-    protected SpriteRenderer spr;
+    private SpriteRenderer spr;
 
-    protected GameObject player;
-    protected Player playerScript;
-    
-
-    protected void Start()
+    void Start()
     {
         movHor = 1;
         speed = 2f;
         rb = GetComponent<Rigidbody2D>();
         spr = GetComponent<SpriteRenderer>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        player = GameObject.FindWithTag("Player");
+        playerScript = (Player) player.GetComponent(typeof(Player));
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.CompareTag("Player"))
         {
-            playerScript.Damage(1);
+            //player.obj.getDamage();
             Flip();
             movHor = movHor * -1;
             //anim.SetFloat("Horizontal", movHor);
@@ -74,13 +73,6 @@ public class Enemy : MonoBehaviour, I_Damagable
             chasePlayer = false;
         }
     }
-    
-    public virtual void Damage(float damage){
-        hp = hp - damage;        
-        if(hp <= 0){            
-            Destroy(this.gameObject);       
-        }
-    }
 
     void Flip()
     {
@@ -106,7 +98,6 @@ public class Enemy : MonoBehaviour, I_Damagable
             Flip();
             movHor = movHor * -1;
         }
-        
         float distanceFromPlayer = Vector2.Distance(player.position, transform.position);
         if(distanceFromPlayer < lineOfSite)
         {
