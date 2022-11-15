@@ -769,6 +769,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1061594619}
   - component: {fileID: 1061594618}
+  - component: {fileID: 1061594620}
   m_Layer: 0
   m_Name: CM vcam1
   m_TagString: Untagged
@@ -798,7 +799,7 @@ MonoBehaviour:
   m_Follow: {fileID: 465153605}
   m_Lens:
     FieldOfView: 60
-    OrthographicSize: 10.7
+    OrthographicSize: 11.25
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
@@ -831,6 +832,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1061594620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1061594617}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a8a05de0ac134f4f9d01bef6b9da077, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1146732170
 GameObject:
   m_ObjectHideFlags: 0
@@ -3165,6 +3178,7 @@ GameObject:
   - component: {fileID: 2147219380}
   - component: {fileID: 2147219379}
   - component: {fileID: 2147219382}
+  - component: {fileID: 2147219383}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -3207,7 +3221,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 10.7
+  orthographic size: 11.25
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -3272,6 +3286,26 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &2147219383
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2147219378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a160d838ff8b4b4693ac20007e008c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AssetsPPU: 16
+  m_RefResolutionX: 640
+  m_RefResolutionY: 360
+  m_UpscaleRT: 0
+  m_PixelSnapping: 0
+  m_CropFrameX: 0
+  m_CropFrameY: 0
+  m_StretchFill: 0
 --- !u!1001 &7286662974575994463
 PrefabInstance:
   m_ObjectHideFlags: 0

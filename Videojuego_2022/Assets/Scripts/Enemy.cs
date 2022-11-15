@@ -9,8 +9,7 @@ public class Enemy : MonoBehaviour
     public float movHor; //Se moverá sólo (cambiar el valor de 1 a -1 )
     public int scoreGive = 50;
     public bool mustTurn = false;
-    public bool chasePlayer = false;
-    private Transform player;
+    public bool chasePlayer = false;    
     public float lineOfSite;
 
     public bool isGroundedFloor = false;
@@ -99,9 +98,11 @@ public class Enemy : MonoBehaviour
             movHor = movHor * -1;
         }
         float distanceFromPlayer = Vector2.Distance(player.position, transform.position);
+        
+        float distanceFromPlayer = Vector2.Distance(player.transform.position, transform.position);
         if(distanceFromPlayer < lineOfSite)
         {
-            transform.position = Vector2.MoveTowards(this.transform.position, player.position, speed*Time.deltaTime);
+            transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, speed*Time.deltaTime);
             speed = 6f; 
             movHor = 0;
         }
