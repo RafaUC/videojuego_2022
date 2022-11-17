@@ -26,7 +26,8 @@ public class Attack : MonoBehaviour
         switch(wd.type){
             case 2:            
                 break;
-            case 1:            
+            case 1: //Ataque tipo escopeta
+                transform.localScale = transform.localScale*wd.damage;
                 break;
             default: //Es ataque tipo disparo
                 transform.localScale = transform.localScale*wd.fieldOfAtack;
@@ -45,8 +46,7 @@ public class Attack : MonoBehaviour
         }
         
 
-        
-        Debug.Log(collission.collider.gameObject.name);
+                
         Destroy(this.gameObject);
     }
 

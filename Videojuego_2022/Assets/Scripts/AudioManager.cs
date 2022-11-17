@@ -1,29 +1,51 @@
-using System.Collections;
-using System.Collections.Generic;
+using UnityEngine.Audio;
+using System;
 using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-    public static AudioManager obj;
 
-    public AudioClip saltar;
-    public AudioClip dano;
-    public AudioClip muerte;
+	public static AudioManager instance;
 
-    private AudioSource audioSrc;
+	public AudioMixerGroup mixerGroup;
 
-    private void Awake(){
-        obj = this;
-        audioSrc = gameObject.AddComponent<AudioSource>();
-    }
+	public Sound[] sounds;
 
-    public void playSaltar(){playSound(saltar);}
+	void Awake()
+	{
+		if (instance != null)
+		{
+			Destroy(gameObject);
+		}
+		else
+		{
+			instance = this;
+			DontDestroyOnLoad(gameObject);
+		}
 
-    public void playHurt(){playSound(dano);}
+		foreach (Sound s in sounds)
+		{
+			s.source = gameObject.AddComponent<AudioSource>();
+			s.source.clip = s.clip;
+			s.source.loop = s.loop;
 
-    public void playMuerte(){playSound(muerte);}
+			s.source.outputAudioMixerGroup = mixerGroup;
+		}
+	}
 
-    public void playSound(AudioClip clip){
-        audioSrc.PlayOneShot(clip);
-    }
+	public void Play(string sound)
+	{
+		Sound s = Array.Find(sounds, item => item.name == sound);
+		if (s == null)
+		{
+			Debug.LogWarning("Sound: " + name + " not found!");
+			return;
+		}
+
+		s.source.volume = s.volume * (1f + UnityEngine.Random.Range(-s.volumeVariance / 2f, s.volumeVariance / 2f));
+		s.source.pitch = s.pitch * (1f + UnityEngine.Random.Range(-s.pitchVariance / 2f, s.pitchVariance / 2f));
+
+		s.source.Play();
+	}
+
 }

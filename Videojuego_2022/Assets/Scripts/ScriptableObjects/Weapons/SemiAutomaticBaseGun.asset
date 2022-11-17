@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: SemiAutomaticBaseGun
   m_EditorClassIdentifier: 
   weaponName: Gun
+  soundName: Shoot1
   type: 0
-  damage: 1
+  damage: 1.5
   roundsPerSecond: -1
   velocity: 40
   reach: 30
@@ -22,7 +23,7 @@ MonoBehaviour:
   recoil: 2
   mass: 0.2
   ammo: 0
-  loadedAmmo: 3
+  loadedAmmo: 21
   maxAmmo: -1
   reloadSize: 22
   reloadTime: 0

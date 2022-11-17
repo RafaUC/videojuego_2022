@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Callbacks;
 using UnityEngine;
 
 public class Weapon : MonoBehaviour
@@ -30,10 +31,16 @@ public class Weapon : MonoBehaviour
             if (wd.loadedAmmo > 0){                
                 wd.attackReleased = false;
                 //invocar bullet
-                GameObject newBullet = Instantiate(bulletDefault, attackPoint.transform.position, Quaternion.identity);
-                newBullet.GetComponent<Attack>().SetAttackData(wd,parent);
-                newBullet.transform.right = transform.right*parent.transform.localScale.x;
-                newBullet.GetComponent<Rigidbody2D>().velocity = transform.right*wd.velocity*parent.transform.localScale.x;                
+                switch (wd.type){
+                    case 0:
+                        Shoot0();
+                        break;
+                    case 1:
+                        Shoot1();
+                        break;
+                    case 2:
+                        break;
+                }
                 
                 
                 wd.loadedAmmo --;
@@ -44,6 +51,28 @@ public class Weapon : MonoBehaviour
             }
         }
         
+    }
+
+    private void Shoot0(){
+        GameObject newBullet = Instantiate(bulletDefault, attackPoint.transform.position, Quaternion.identity);
+        newBullet.GetComponent<Attack>().SetAttackData(wd,parent);
+        newBullet.transform.right = transform.right*parent.transform.localScale.x;
+        newBullet.GetComponent<Rigidbody2D>().velocity = transform.right*wd.velocity*parent.transform.localScale.x;  
+        AudioManager.instance.Play(wd.soundName);
+    }
+
+    private void Shoot1(){        
+        for(int i=0; i<wd.fieldOfAtack; i++){
+            float disp = Random.Range(-wd.fieldOfAtack*0.025f,wd.fieldOfAtack*0.025f);
+            GameObject newBullet = Instantiate(bulletDefault, attackPoint.transform.position, Quaternion.identity);
+            newBullet.GetComponent<Attack>().SetAttackData(wd,parent);
+            Vector2 temp = transform.right*parent.transform.localScale.x ;            
+            temp.x = temp.x + (disp*Mathf.Sign(temp.x));
+            temp.y = temp.y - (disp*Mathf.Sign(temp.y));            
+            newBullet.transform.right = temp;                             
+            newBullet.GetComponent<Rigidbody2D>().velocity = newBullet.transform.right*wd.velocity ;                  
+        }
+        AudioManager.instance.Play(wd.soundName);
     }
 
     private void DoAfterAttack(){

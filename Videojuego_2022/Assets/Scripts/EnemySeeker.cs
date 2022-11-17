@@ -55,6 +55,7 @@ public class EnemySeeker : Enemy
 
     public void SetTarget(GameObject newTarget){
         target = newTarget;
+        AudioManager.instance.Play("PufferAngry");
     }
 
     public void searchPlayer(){
@@ -65,8 +66,7 @@ public class EnemySeeker : Enemy
             (player.transform.position - transform.position + offset).normalized, playerDetectionRange, 
             LayerMask.GetMask("ground","Player","Default"));
         Debug.DrawRay(transform.position, (player.transform.position - transform.position + offset), Color.red);
-        if(hit){
-            print(hit.transform.name);
+        if(hit){            
             if (hit.transform.GetComponent<Player>() != null){
                 SetTarget(player);
             }
@@ -116,8 +116,15 @@ public class EnemySeeker : Enemy
     }
 
     public override void Damage(float damage){
-        base.Damage(damage);
+        AudioManager.instance.Play("PufferHurt");
+        base.Damage(damage);        
         //rb.velocity = rb.velocity * 0.7f;
+    }
+
+    public override void Die()
+    {
+        AudioManager.instance.Play("PufferDie");
+        base.Die();
     }
 
 }

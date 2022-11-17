@@ -26,11 +26,12 @@ public class Player : MonoBehaviour, I_Damagable
 
     private Rigidbody2D rb;
     private Animator anim;
-    private SpriteRenderer spr;
-    private GameObject tail;    
+    private SpriteRenderer spr;    
     private int isFliped = 1;
 
     private GameObject weapon;
+    private GameObject tail;    
+    private GameObject midle;
     private Weapon WeaponScript;
     
 
@@ -44,12 +45,13 @@ public class Player : MonoBehaviour, I_Damagable
         anim = GetComponent<Animator>();
         tail = transform.Find("Tail").gameObject;
         weapon = transform.Find("Gun").gameObject;
+        midle = transform.Find("Midle").gameObject;
         WeaponScript = weapon.GetComponent<Weapon>();
     }
     void FixedUpdate()
     {
         Utilities.ChangeVelocityByAceleration(rb,new Vector2(movHor*maxSpeed,rb.velocity.y),movInercia);
-        
+        midle.transform.position = transform.position + ((Vector3)cursorPosition - transform.position)/3;
     }
 
     void Awake()
@@ -122,6 +124,7 @@ public class Player : MonoBehaviour, I_Damagable
     void Update()
     {        
         cursorPosition = GetCursorPos();
+        
         movementInput = movement.action.ReadValue<Vector2>();
         movHor = movementInput.x;
         //flip(movHor);   

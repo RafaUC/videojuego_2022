@@ -70,8 +70,12 @@ public class Enemy : MonoBehaviour, I_Damagable
     public virtual void Damage(float damage){
         hp = hp - damage;        
         if(hp <= 0){            
-            Destroy(this.gameObject);       
+            Die();
         }
+    }
+
+    public virtual void Die(){
+        Destroy(this.gameObject);       
     }
 
     void Flip()

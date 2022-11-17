@@ -7,11 +7,12 @@ public class WeaponData : ScriptableObject
 {
     [Header("Info") ]
     public string weaponName;
+    public string soundName;
 
     [Header("Attack") ]
     public int type;  //0 = bullet Gun 1 = Conic attack
     public float damage;
-    public float roundsPerSecond;
+    public float roundsPerSecond;    
     public float velocity;
     public float reach;
     public float fieldOfAtack;

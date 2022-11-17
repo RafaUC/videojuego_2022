@@ -10,22 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4ff0eac4d2fd5a46a2d255bcc048409, type: 3}
-  m_Name: HeavyGun
+  m_Name: shootGun
   m_EditorClassIdentifier: 
   weaponName: Gun
   soundName: Shoot2
-  type: 0
-  damage: 5
-  roundsPerSecond: 1
+  type: 1
+  damage: 1
+  roundsPerSecond: 1.2
   velocity: 40
-  reach: 20
-  fieldOfAtack: 3
+  reach: 13
+  fieldOfAtack: 10
   recoil: 20
-  mass: 2
+  mass: 0.2
   ammo: 0
-  loadedAmmo: 20
+  loadedAmmo: 9
   maxAmmo: -1
   reloadSize: 22
   reloadTime: 0
   isReloading: 0
-  attackReleased: 1
+  attackReleased: 0
