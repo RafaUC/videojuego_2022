@@ -9,4 +9,10 @@ public class SceneSwitcher : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
+
+    public void QuitGame() //Por ahora no hace nada, pero cuando importemos el videojuego si va a cerrar el programa
+    {
+        Debug.Log("Exit");
+        Application.Quit();
+    }
 }
