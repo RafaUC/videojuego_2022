@@ -53,12 +53,12 @@ public class EnemySeeker : Enemy
         flip(rb.velocity.x);
     }    
 
-    public void SetTarget(GameObject newTarget){
+    public virtual void SetTarget(GameObject newTarget){
         target = newTarget;
         AudioManager.instance.Play("PufferAngry");
     }
 
-    public void searchPlayer(){
+    public virtual void searchPlayer(){
         if (target != null) return;
         Vector3 offset = player.GetComponent<Collider2D>().bounds.size;
         offset = new Vector3(0,offset.y,0);
