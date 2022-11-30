@@ -89,7 +89,7 @@ public class Enemy : MonoBehaviour, I_Damagable
         mustTurn = !Physics2D.OverlapCircle(groundCheckPos.position, 0.1f, groundLayer);
     }
 
-    private void OnDrawGizmoSelected()
+    private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, lineOfSite);
