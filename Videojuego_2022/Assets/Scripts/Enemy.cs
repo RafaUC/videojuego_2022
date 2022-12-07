@@ -107,7 +107,7 @@ public class Enemy : MonoBehaviour, I_Damagable
         if(distanceFromPlayer < lineOfSite)
         {
             transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, speed*Time.deltaTime);
-            speed = 6f; 
+            speed = 9f; 
             movHor = 0;
         }
         else{

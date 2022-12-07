@@ -108,7 +108,7 @@ public class EnemySeeker : Enemy
                 
     }
 
-    void OnCollisionEnter2D(Collision2D collission){
+    public virtual void OnCollisionEnter2D(Collision2D collission){
         I_Damagable damagable = collission.gameObject.GetComponent<I_Damagable>();
         if (damagable != null && target != null && target.GetComponent<I_Damagable>() == damagable){            
             damagable.Damage(1);

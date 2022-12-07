@@ -1,6 +1,8 @@
 using UnityEngine.Audio;
 using System;
 using UnityEngine;
+using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class AudioManager : MonoBehaviour
 {
@@ -47,5 +49,14 @@ public class AudioManager : MonoBehaviour
 
 		s.source.Play();
 	}
+
+	public void ReturnMenu(){
+		StartCoroutine(ReturnMenuC());
+	}
+
+	IEnumerator ReturnMenuC(){
+        yield return new WaitForSeconds(5);
+        SceneManager.LoadScene(0);
+    }
 
 }

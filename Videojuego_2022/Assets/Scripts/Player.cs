@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour, I_Damagable
 {
@@ -62,10 +63,13 @@ public class Player : MonoBehaviour, I_Damagable
     public void Damage(float damage){
         hp = hp - damage;        
         if(hp <= 0){            
+            AudioManager.instance.ReturnMenu();
             this.gameObject.SetActive(false);
+            
             //Destroy(this.gameObject);       
         }
     }
+
 
     public void Jump(){
         if (canJump != 2 || jumpSpareTimeCount < 0) return;

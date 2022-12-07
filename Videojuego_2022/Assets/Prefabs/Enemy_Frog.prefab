@@ -195,8 +195,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 299d036122df0d94db46be4577d73c2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 3
-  speed: 2
+  hp: 6
+  speed: 4
   movHor: 1
   scoreGive: 50
   mustTurn: 0
@@ -208,7 +208,7 @@ MonoBehaviour:
   groundCheckPos: {fileID: 1241983848188061939}
   bodyCollider: {fileID: 1241983847645221909}
   anim: {fileID: 0}
-  lineOfSite: 9
+  lineOfSite: 20
 --- !u!1 &1241983848188061936
 GameObject:
   m_ObjectHideFlags: 0

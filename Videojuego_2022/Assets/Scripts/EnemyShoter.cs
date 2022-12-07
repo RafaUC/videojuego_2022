@@ -18,7 +18,7 @@ public class EnemyShoter : MonoBehaviour
  
     void Start()
     {
-
+        Target = GameObject.FindWithTag("Player").transform;
     }
 
     void Update()
