@@ -3466,6 +3466,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2265131348062138836, guid: 95a5b508228c9474b966afc397aacead, type: 3}
+      propertyPath: m_RefResolutionX
+      value: 768
+      objectReference: {fileID: 0}
+    - target: {fileID: 2265131348062138836, guid: 95a5b508228c9474b966afc397aacead, type: 3}
+      propertyPath: m_RefResolutionY
+      value: 432
+      objectReference: {fileID: 0}
+    - target: {fileID: 2265131348062138839, guid: 95a5b508228c9474b966afc397aacead, type: 3}
+      propertyPath: orthographic size
+      value: 13.53
+      objectReference: {fileID: 0}
     - target: {fileID: 2265131349128323992, guid: 95a5b508228c9474b966afc397aacead, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -3514,9 +3526,17 @@ PrefabInstance:
       propertyPath: m_Follow
       value: 
       objectReference: {fileID: 656270699}
+    - target: {fileID: 2265131349128323993, guid: 95a5b508228c9474b966afc397aacead, type: 3}
+      propertyPath: m_Lens.OrthographicSize
+      value: 13.53
+      objectReference: {fileID: 0}
     - target: {fileID: 2265131349128323994, guid: 95a5b508228c9474b966afc397aacead, type: 3}
       propertyPath: m_Name
       value: CM vcam1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2265131349128323999, guid: 95a5b508228c9474b966afc397aacead, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 95a5b508228c9474b966afc397aacead, type: 3}
